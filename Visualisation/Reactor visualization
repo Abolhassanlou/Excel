@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Batch Reactor with Control Panel</title>
+<style>
+    body {
+        font-family: sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f0f0f0;
+        margin: 0;
+    }
+    svg {
+        border: 1px solid #ccc;
+        background-color: #2F4F4F; /* Dark green background for the reactor part */
+    }
+    /* Styles for the embedded HTML inputs and displays */
+    .control-input, .control-display {
+        width: 80px;
+        height: 30px;
+        font-size: 16px;
+        border: 1px solid #808080;
+        border-radius: 5px;
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        text-align: center;
+        line-height: 30px; /* Vertically center text for displays */
+        padding: 0 5px; /* Add some padding for inputs */
+    }
+    .control-input {
+        background-color: #F8F8F8; /* Light background for input fields */
+    }
+    .control-display {
+        background-color: #C0C0C0; /* Grey background for display fields */
+        color: #000;
+    }
+    .control-label {
+        font-family: Arial, sans-serif;
+        font-size: 14px; /* Smaller label for tight spacing */
+        fill: #555;
+    }
+    .volume-slider {
+        width: 150px;
+        height: 20px;
+    }
+    .slider-label {
+        font-size: 14px;
+        margin-left: 5px;
+    }
+</style>
+</head>
+<body>
+
+<svg width="800" height="650" viewBox="0 0 800 650" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient id="liquidGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            // the liquid in the container color 
+            <stop offset="0%" style="stop-color:rgb(230, 127, 0);stop-opacity:1" />
+            <stop offset="100%" style="stop-color:rgb(130, 67, 0);stop-opacity:1" />
+        </linearGradient>
+    </defs>
+
+    <path d="M200 100 A100 50 0 0 1 300 150 L300 450 A100 50 0 0 1 200 500 L200 100 Z"
+          fill="#004040" stroke="#202020" stroke-width="5"/>
+    <path d="M200 100 A100 50 0 0 0 300 150 L300 450 A100 50 0 0 0 200 500 L200 100 Z"
+          fill="#606060" stroke="#404040" stroke-width="5" transform="translate(0, 10)"/>
+    <circle cx="195" cy="200" r="8" fill="#505050" stroke="#303030" stroke-width="1"/>
+    <circle cx="195" cy="250" r="8" fill="#505050" stroke="#303030" stroke-width="1"/>
+    <circle cx="195" cy="300" r="8" fill="#505050" stroke="#303030" stroke-width="1"/>
+    <circle cx="195" cy="350" r="8" fill="#505050" stroke="#303030" stroke-width="1"/>
+    <circle cx="195" cy="400" r="8" fill="#505050" stroke="#303030" stroke-width="1"/>
+
+    <circle cx="305" cy="200" r="8" fill="#505050" stroke="#303030" stroke-width="1"/>
+    <circle cx="305" cy="250" r="8" fill="#505050" stroke="#303030" stroke-width="1"/>
+    <circle cx="305" cy="300" r="8" fill="#505050" stroke="#303030" stroke-width="1"/>
+    <circle cx="305" cy="350" r="8" fill="#505050" stroke="#303030" stroke-width="1"/>
+    <circle cx="305" cy="400" r="8" fill="#505050" stroke="#303030" stroke-width="1"/>
+
+    <path id="liquidLevelPath" d="M205 470 A95 47.5 0 0 1 295 470 L295 470 L205 470 Z"
+          fill="url(#liquidGradient)" stroke="none"/>
+
+    <rect x="220" y="70" width="60" height="40" fill="white" stroke="#606060" stroke-width="2"/>
+    <rect x="245" y="110" width="10" height="20" fill="white" stroke="#606060" stroke-width="2"/>
+
+    <g id="movableMixerGroup">
+        <rect x="245" y="130" width="10" height="290" fill="white" stroke="#606060" stroke-width="2"/>
+        <g id="mixerBladeGroup">
+            <ellipse cx="250" cy="420" rx="40" ry="10" fill="white" stroke="#606060" stroke-width="2"/>
+        </g>
+    </g>
+
+    <rect x="150" y="100" width="50" height="20" fill="#404040" stroke="#202020" stroke-width="2"/>
+    <rect x="150" y="100" width="20" height="100" fill="#404040" stroke="#202020" stroke-width="2"/>
+    <polygon points="140,200 160,200 150,220" fill="#404040"/>
+    <rect x="300" y="440" width="100" height="20" fill="#404040" stroke="#202020" stroke-width="2"/>
+    <polygon points="400,430 400,450 420,440" fill="#404040"/>
+// control panel
+    <g transform="translate(450, 50)">
+        <rect x="0" y="0" width="320" height="550" rx="20" ry="10" fill="#E0E0E0" stroke="#A0A0A0" stroke-width=""/>
+
+        <text x="150" y="30" font-family="Arial, sans-serif" font-size="24" fill="#333" text-anchor="middle">Control Panel</text>
+
+        <text x="30" y="70" class="control-label">Set Temp (°C):</text>
+        <foreignObject x="30" y="75" width="90" height="40">
+            <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0; padding:0; background:none;">
+                <input type="number" id="setTempInput" class="control-input" value="88" min="0" max="200" step="1"/>
+            </body>
+        </foreignObject>
+        <text x="170" y="70" class="control-label">Actual Temp (°C):</text>
+        <foreignObject x="170" y="75" width="90" height="40">
+                <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0; padding:0; background:none;">
+                    <div id="actualTempDisplay" class="control-display">85.5</div>
+                </body>
+        </foreignObject>
+
+        <text x="30" y="140" class="control-label">Set Pressure (bar):</text>
+        <foreignObject x="30" y="145" width="90" height="40">
+            <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0; padding:0; background:none;">
+                <input type="number" id="setPressureInput" class="control-input" value="2.5" min="0" max="10" step="0.1"/>
+            </body>
+        </foreignObject>
+        <text x="170" y="140" class="control-label">Actual Pressure (bar):</text>
+        <foreignObject x="170" y="145" width="90" height="40">
+                <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0; padding:0; background:none;">
+                    <div id="actualPressureDisplay" class="control-display">2.4</div>
+                </body>
+        </foreignObject>
+
+        <text x="30" y="210" class="control-label">Mixer Height (%):</text>
+        <foreignObject x="30" y="215" width="100" height="40">
+                <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0; padding:0; background:none;">
+                    <div id="mixerHeightDisplay" class="control-display">75%</div>
+                </body>
+        </foreignObject>
+        <rect x="140" y="215" width="40" height="20" rx="3" ry="3" fill="#D3D3D3" stroke="#A9A9A9" stroke-width="1" onclick="if(reactorRunning) adjustMixerHeight(5)"/>
+        <polygon points="160,218 150,230 170,230" fill="#444" onclick="if(reactorRunning) adjustMixerHeight(5)"/>
+        <rect x="140" y="235" width="40" height="20" rx="3" ry="3" fill="#D3D3D3" stroke="#A9A9A9" stroke-width="1" onclick="if(reactorRunning) adjustMixerHeight(-5)"/>
+        <polygon points="160,252 150,240 170,240" fill="#744" onclick="if(reactorRunning) adjustMixerHeight(-5)"/>
+
+        <text x="30" y="280" class="control-label">Mixer Speed (RPM):</text>
+        <foreignObject x="30" y="285" width="120" height="40">
+            <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0; padding:0; background:none;">
+                <input type="number" id="setMixerSpeed" class="control-input" value="130" min="0" max="500" step="10"/>
+            </body>
+        </foreignObject>
+        <text x="170" y="280" class="control-label">Actual Speed (RPM):</text>
+        <foreignObject x="170" y="285" width="120" height="40">
+                <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0; padding:0; background:none;">
+                    <div id="actualMixerSpeedDisplay" class="control-display">33</div>
+                </body>
+        </foreignObject>
+
+        <text x="30" y="350" class="control-label">Volume (%):</text>
+        <foreignObject x="30" y="360" width="250" height="50">
+            <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0; padding:0; background:none;">
+                <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="0"/>
+                <span id="volumeDisplay" class="slider-label">0%</span>
+            </body>
+        </foreignObject>
+
+        <rect x="30" y="450" width="80" height="40" rx="5" ry="5" fill="#90EE90" stroke="#6B8E23" stroke-width="2" onclick="startReactor()"/>
+        <text x="70" y="477" font-family="Arial, sans-serif" font-size="16" fill="#333" text-anchor="middle" onclick="startReactor()">START</text>
+
+        <rect x="120" y="450" width="80" height="40" rx="5" ry="5" fill="#FFB6C1" stroke="#CD5C5C" stroke-width="2" onclick="stopReactor()"/>
+        <text x="160" y="477" font-family="Arial, sans-serif" font-size="16" fill="#333" text-anchor="middle" onclick="stopReactor()">STOP</text>
+
+        <rect x="210" y="450" width="80" height="40" rx="5" ry="5" fill="#ADD8E6" stroke="#4682B4" stroke-width="2" onclick="resetReactor()"/>
+        <text x="250" y="477" font-family="Arial, sans-serif" font-size="16" fill="#333" text-anchor="middle" onclick="resetReactor()">RESET</text>
+    </g>
+</svg>
+
+<script>
+    // --- Global State ---
+    let reactorRunning = false;
+    let gaugeInterval;
+    let mixerSpeedInterval;
+    let mixerRotationAnimationId;
+    let currentMixerRotationAngle = 0;
+
+    // Corrected: Declare these variables globally
+    // They will be assigned their DOM element references inside DOMContentLoaded
+    let mixerBladeGroup;
+    let mixerHeightDisplay; // Was global but not assigned in DOMContentLoaded
+    let liquidLevelPath;    // Was global but not assigned in DOMContentLoaded
+
+    // Gauge related elements
+    let setTempInput;
+    let actualTempDisplay;
+    let setPressureInput;
+    let actualPressureDisplay;
+    let setMixerSpeedInput;
+    let actualMixerSpeedDisplay;
+    let volumeSlider;
+    let volumeDisplay;
+
+
+    // --- Mixer Logic ---
+    let currentMixerHeightPercent = 75;
+    const movableMixerGroup = document.getElementById('movableMixerGroup'); // This one can stay, it's above mixerBladeGroup
+
+    // Original Y-coordinates for the movable mixer group components
+    const originalMovableShaftTopY = 100;
+    const originalMovableBladeCenterY = 420;
+
+    const mixerBladeTargetTopY = 140;
+    const mixerBladeTargetBottomY = 420;
+    const mixerTravelRange = mixerBladeTargetBottomY - mixerBladeTargetTopY;
+
+    function updateMixerPosition() {
+        const targetBladeY = mixerBladeTargetTopY + (currentMixerHeightPercent / 100) * mixerTravelRange;
+        const translateY = targetBladeY - originalMovableBladeCenterY;
+        movableMixerGroup.setAttribute('transform', `translate(0, ${translateY})`);
+        // Ensure mixerHeightDisplay is defined before using it
+        if (mixerHeightDisplay) {
+            mixerHeightDisplay.textContent = `${currentMixerHeightPercent}%`;
+        }
+    }
+
+    function adjustMixerHeight(delta) {
+        if (!reactorRunning) return;
+        currentMixerHeightPercent = Math.max(0, Math.min(100, currentMixerHeightPercent + delta));
+        updateMixerPosition();
+    }
+
+    // --- Liquid Volume Logic ---
+    const reactorLiquidMinY = 180;
+    const reactorLiquidMaxY = 470;
+    const reactorLiquidHeightRange = reactorLiquidMaxY - reactorLiquidMinY;
+    const reactorLiquidRadiusX = 95;
+    const reactorLiquidRadiusY = 47.5;
+
+    function updateVolume(percent) {
+        const currentLiquidTopY = reactorLiquidMaxY - (percent / 100) * reactorLiquidHeightRange;
+        let pathData;
+        if (percent === 0) {
+            pathData = `M205 ${reactorLiquidMaxY} A95 47.5 0 0 1 295 ${reactorLiquidMaxY} L295 ${reactorLiquidMaxY} L205 ${reactorLiquidMaxY} Z`;
+        } else {
+            pathData = `
+                M205 ${reactorLiquidMaxY}
+                A${reactorLiquidRadiusX} ${reactorLiquidRadiusY} 0 0 1 295 ${reactorLiquidMaxY}
+                L295 ${currentLiquidTopY}
+                A${reactorLiquidRadiusX} ${reactorLiquidRadiusY} 0 0 0 205 ${currentLiquidTopY}
+                L205 ${reactorLiquidMaxY} Z
+            `;
+        }
+        // liquidLevelPath and volumeDisplay are defined before using them
+        if (liquidLevelPath) {
+            liquidLevelPath.setAttribute('d', pathData);
+        }
+        if (volumeDisplay) {
+            volumeDisplay.textContent = `${percent}%`;
+        }
+    }
+
+    // --- Mixer Rotation Logic ---
+    const MIXER_ROTATION_BASE_SPEED = 0.5;
+
+    function animateMixerRotation() {
+        if (!reactorRunning) {
+            mixerRotationAnimationId = null;
+            return;
+        }
+
+        // Ensure setMixerSpeedInput is defined before trying to get its value
+        const setMixerSpeed = setMixerSpeedInput ? parseFloat(setMixerSpeedInput.value) : 0;
+        const rotationDelta = (setMixerSpeed / 100) * MIXER_ROTATION_BASE_SPEED;
+
+        currentMixerRotationAngle = (currentMixerRotationAngle + rotationDelta) % 360;
+
+        // Ensure mixerBladeGroup is not null before trying to set attribute
+        if (mixerBladeGroup) {
+            mixerBladeGroup.setAttribute('transform', `rotate(${currentMixerRotationAngle} 250 420)`);
+        } else {
+            // This error should ideally not happen after the DOMContentLoaded check
+            console.error("mixerBladeGroup is null in animateMixerRotation. This shouldn't happen.");
+        }
+
+        mixerRotationAnimationId = requestAnimationFrame(animateMixerRotation);
+    }
+
+    // --- Gauge Simulation Logic ---
+    function updateGauges() {
+        if (!reactorRunning) return;
+
+        // Ensure these elements are defined
+        if (!setTempInput || !actualTempDisplay || !setPressureInput || !actualPressureDisplay) {
+            console.error("Gauge elements not found for updateGauges.");
+            return;
+        }
+
+        const setTemp = parseFloat(setTempInput.value);
+        const actualTemp = (setTemp + (Math.random() * 5 - 2.5)).toFixed(1); // +/- 2.5
+        actualTempDisplay.textContent = actualTemp;
+        actualTempDisplay.style.backgroundColor = (Math.abs(setTemp - parseFloat(actualTemp)) > 3) ? '#FFD700' : '#C0C0C0';
+
+        const setPressure = parseFloat(setPressureInput.value);
+        const actualPressure = (setPressure + (Math.random() * 0.2 - 0.1)).toFixed(1); // +/- 0.1
+        actualPressureDisplay.textContent = actualPressure;
+        actualPressureDisplay.style.backgroundColor = (Math.abs(setPressure - parseFloat(actualPressure)) > 0.15) ? '#FFD700' : '#C0C0C0';
+    }
+
+    // New function for mixer speed simulation
+    function simulateMixerSpeed() {
+        if (!reactorRunning) return;
+
+        // Ensure these elements are defined
+        if (!setMixerSpeedInput || !actualMixerSpeedDisplay) {
+            console.error("Mixer speed elements not found for simulateMixerSpeed.");
+            return;
+        }
+
+        const setMixerSpeed = parseFloat(setMixerSpeedInput.value);
+        const actualMixerSpeed = (setMixerSpeed + (Math.random() * 10 - 5)).toFixed(0); // +/- 5 RPM
+        actualMixerSpeedDisplay.textContent = actualMixerSpeed;
+        actualMixerSpeedDisplay.style.backgroundColor = (Math.abs(setMixerSpeed - parseFloat(actualMixerSpeed)) > 7) ? '#FFD700' : '#C0C0C0';
+    }
+
+    // --- Control Functions ---
+    function enableControls(enable) {
+        // Ensure inputs are defined before accessing disabled property
+        if (setTempInput) setTempInput.disabled = !enable;
+        if (setPressureInput) setPressureInput.disabled = !enable;
+        if (setMixerSpeedInput) setMixerSpeedInput.disabled = !enable;
+        if (volumeSlider) volumeSlider.disabled = !enable;
+
+        // Optionally, disable/enable mixer height buttons as well
+        document.querySelectorAll('polygon[onclick^="adjustMixerHeight"], rect[onclick^="adjustMixerHeight"]').forEach(el => {
+            el.style.pointerEvents = enable ? 'auto' : 'none';
+            el.style.opacity = enable ? '1' : '0.5';
+        });
+    }
+
+    function startReactor() {
+        if (reactorRunning) return; // Prevent starting if already running
+        reactorRunning = true;
+        enableControls(true);
+        gaugeInterval = setInterval(updateGauges, 2000); // Update gauges every 2 seconds
+        mixerSpeedInterval = setInterval(simulateMixerSpeed, 500); // Update mixer speed more frequently
+        updateGauges(); // Initial update
+        simulateMixerSpeed(); // Initial update
+
+        // New: Start mixer rotation animation
+        if (!mixerRotationAnimationId) { // Prevent multiple animation frames
+            mixerRotationAnimationId = requestAnimationFrame(animateMixerRotation);
+        }
+        console.log("Reactor Started");
+    }
+
+    function stopReactor() {
+        if (!reactorRunning) return; // Prevent stopping if already stopped
+        reactorRunning = false;
+        clearInterval(gaugeInterval);
+        clearInterval(mixerSpeedInterval);
+        if (mixerRotationAnimationId) { // New: Stop mixer rotation animation
+            cancelAnimationFrame(mixerRotationAnimationId);
+            mixerRotationAnimationId = null;
+        }
+        enableControls(false);
+        console.log("Reactor Stopped");
+    }
+
+    function resetReactor() {
+        stopReactor(); // Stop first if running
+
+        // Reset all input values
+        if (setTempInput) setTempInput.value = 88;
+        if (setPressureInput) setPressureInput.value = 2.5;
+        if (setMixerSpeedInput) setMixerSpeedInput.value = 30;
+        if (volumeSlider) volumeSlider.value = 0;
+
+        // Reset display values
+        if (actualTempDisplay) { actualTempDisplay.textContent = '85.5'; actualTempDisplay.style.backgroundColor = '#C0C0C0'; }
+        if (actualPressureDisplay) { actualPressureDisplay.textContent = '2.4'; actualPressureDisplay.style.backgroundColor = '#C0C0C0'; }
+        if (actualMixerSpeedDisplay) { actualMixerSpeedDisplay.textContent = '33'; actualMixerSpeedDisplay.style.backgroundColor = '#C0C0C0'; }
+
+
+        currentMixerHeightPercent = 75; // Reset mixer height
+        updateMixerPosition();
+        updateVolume(0); // Reset volume to 0%
+
+        // New: Reset mixer rotation angle
+        currentMixerRotationAngle = 0;
+        if (mixerBladeGroup) { // Ensure mixerBladeGroup is not null
+            mixerBladeGroup.setAttribute('transform', `rotate(0 250 420)`); // Reset visual rotation
+        }
+        console.log("Reactor Reset");
+    }
+
+    // Initial setup calls and event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Assign all global DOM element references here ---
+        mixerBladeGroup = document.getElementById('mixerBladeGroup');
+        mixerHeightDisplay = document.getElementById('mixerHeightDisplay');
+        liquidLevelPath = document.getElementById('liquidLevelPath');
+
+        setTempInput = document.getElementById('setTempInput');
+        actualTempDisplay = document.getElementById('actualTempDisplay');
+        setPressureInput = document.getElementById('setPressureInput');
+        actualPressureDisplay = document.getElementById('actualPressureDisplay');
+        setMixerSpeedInput = document.getElementById('setMixerSpeed');
+        actualMixerSpeedDisplay = document.getElementById('actualMixerSpeedDisplay');
+        volumeSlider = document.getElementById('volumeSlider');
+        volumeDisplay = document.getElementById('volumeDisplay');
+
+        // Basic error checking for critical elements
+        if (!mixerBladeGroup || !movableMixerGroup || !liquidLevelPath || !setTempInput) {
+            console.error("Critical SVG or HTML elements not found. Check IDs.");
+            // You might want to disable the entire UI or show an error message
+            return;
+        }
+
+        // Mixer
+        updateMixerPosition(); // Initial position based on currentMixerHeightPercent
+
+        // Volume
+        volumeSlider.addEventListener('input', function() {
+            if (reactorRunning) updateVolume(this.value); // Only update volume if running
+        });
+        updateVolume(volumeSlider.value); // Set initial liquid level to 0% as per image
+
+        // Initial state: controls are disabled until "START" is pressed
+        enableControls(false);
+
+        // Add event listeners for direct input changes to update gauges/mixer speed displays
+        setTempInput.addEventListener('input', updateGauges);
+        setPressureInput.addEventListener('input', updateGauges);
+        setMixerSpeedInput.addEventListener('input', simulateMixerSpeed);
+
+        // Bind start/stop/reset buttons
+        // It's generally better practice to attach event listeners using .addEventListener()
+        // especially for SVG elements, but for simplicity with direct `onclick` I'll keep that pattern if you prefer.
+        // However, if you add the onclick attribute in HTML, it creates an inline JS call.
+        // For robustness, I'll recommend the addEventListener approach for the buttons here.
+        document.querySelector('rect[onclick="startReactor()"]').onclick = startReactor;
+        document.querySelector('text[onclick="startReactor()"]').onclick = startReactor;
+        document.querySelector('rect[onclick="stopReactor()"]').onclick = stopReactor;
+        document.querySelector('text[onclick="stopReactor()"]').onclick = stopReactor;
+        document.querySelector('rect[onclick="resetReactor()"]').onclick = resetReactor;
+        document.querySelector('text[onclick="resetReactor()"]').onclick = resetReactor;
+    });
+</script>
+
+</body>
+</html>
