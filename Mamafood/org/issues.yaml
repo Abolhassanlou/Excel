@@ -1,0 +1,139 @@
+- nr: 0001
+  title: Ordnerstuktur
+  creator: Simon
+  assignee: ?
+  estimated: 1
+  due: 2024-10-15
+  state: closed
+  milestone: 0001
+- nr: 0002
+  title: Design in Figma
+  creator: Rama
+  assignee: Rama,Fatemeh
+  estimated: 30
+  due: 2024-10-19
+  state: closed
+  milestone: 0002
+- nr: 0003
+  title: Datenbank Design 
+  creator: Fatemeh
+  assignee: Fatemeh
+  estimated: 25
+  due: 2024-10-24
+  state: 75%
+  milestone: 0002
+- nr: 0004
+  title: REST-API getAllMeals(userId), createNewMeal(...params), updateMeal(meal_id), deleteMeal(meal_id)
+  creator: Fatemeh
+  assignee: Fatemeh
+  estimated: 20
+  due: 2024-10-24=>2025-03-15
+  state: 50%
+  milestone: 0004
+- nr: 0005
+  title: Frontend für Meal-Management
+  creator: Rama
+  assignee: Rama
+  estimated: 20
+  due: 2024-12-8
+  state: 60%
+  milestone: 0003
+- nr: 0006
+  title: Klassendiagramm (für Doku)
+  creator: Fatemeh
+  assignee: Fatemeh
+  estimated: 5
+  due: 2024-10-24
+  state: 100%
+  milestone: 0002
+- nr: 0007
+  title: Diagramm für REST-API
+  creator: Fatemeh
+  assignee: Fatemeh
+  estimated: 5
+  due: 2024-10-24
+  state: 100%
+  milestone: 0002
+  - nr: 0008
+  title:  Projektinitialisierung und Grundstruktur
+   description: |
+    - Vue 3 Projekt mit Vite erstellt
+  creator: Rama
+  assignee: Rama
+  estimated: 3
+  due: 2025-02-06
+  state: 100%
+  milestone: 0003
+   - nr: 0009
+  title:  Kompeneten erstellt
+   description: |
+    - SignUp-Kompenent
+    - Login-Kompenete
+    - Navbar-Kompenente
+  creator: Rama
+  assignee: Rama
+  estimated: 8
+  due: 2025-02-13
+  state: 100%
+  milestone: 0003
+  - nr: 00010
+   title:  Interface DataProvider und Mock-Daten 
+   description: |
+    - Schnittstelle (DataProvider) erstellt.
+    - MockDataProvider implementiert, der gefälschte Daten für das Frontend zurückgibt.
+  creator: Rama
+  assignee: Rama
+  estimated: 1
+  due: 2025-02-13
+  state: 100%
+  milestone: 0003
+  - nr: 00011
+   title: Seite erstellt 
+   description: |
+    - Welcome-Seite 
+  creator: Rama
+  assignee: Rama
+  estimated: 20
+  due: 2025-03-22
+  state: 10%
+  milestone: 0003
+  - nr: 00012
+   title: Chef-Panel
+   description: |
+    - Menü, und Profil als Chef verwalten
+  creator: Rama
+  assignee: Rama
+  estimated: 25
+  due: 2025-03-22
+  state: 70%
+  milestone: 0003
+  nr: 00013
+  title: REST-API for user (register , reset , forgetpassword, authentication)
+  creator: Fatemeh
+  assignee: Fatemeh
+  estimated: 40
+  due: 2025-02-30
+  state: 100%
+  nr: 00014
+  title: REST-API for restaurant (create, modify , filter acoording cuisine type or city)
+  creator: Fatemeh
+  assignee: Fatemeh
+  estimated: 15
+  due: 2025-03-15
+  state: 100%
+   nr: 00014
+  title: REST-API for category, cusinie , address (create, modify , filter by id, fetch all , delete)
+  creator: Fatemeh
+  assignee: Fatemeh
+  estimated: 15
+  due: 2025-03-15
+  state: 100%
+   nr: 00015
+  title: frontend for user(register, login , fetchuser , redirect with role, resetpassword , forget password)
+  creator: Fatemeh
+  assignee: Fatemeh
+  estimated: 32
+  due: 2025-03-20
+  state: 100%
+  
+  

@@ -1,0 +1,32 @@
+2024-10-10, Fatemeh , 0003, Database , 10
+2024-10-11, Rama, 0002, Figma: Hauptseite, Produkte, User, 10.0
+2024-10-11, Fatemeh, 0002, Kochprfil, 8.0
+2024-10-14, Rama, 0001, Ordnerstruktur, 0.5
+2024-10-14, Fatemeh, 0001, Ordnerstruktur, 0.5
+2024-10-14, Rama, 0002, Userprofil, 1.0
+2024-10-14, Fatemeh, 0002, Kochprofil, 1.0
+2024-10-19, Fatemeh , 0003, Database , 8
+2024-10-18, Rama, 0002, Figma, 2.0  
+2024-10-19, Rama, 0002, Figma : Rollen wechseln zwieschen Kunde und Koch und das Registrierungsformular, 5.0
+2024-10-28, Fatemeh , 003 , Database , 6
+2024-11-22, Fatemeh , 003 , Database , 3
+2024-12-09, Rama , 005 , Frontend für Meal-Management: Hinzufügen von Gerichten (ohne Datenbank verbindung), 8.0
+2024-12-7 , Fatemeh , restapi with laravel, 8
+2024-12-14 , Fatemeh , restapi with laravel, 8
+2024-12-21 , Fatemeh , restastapi with laravel, 8
+2024-12-28.,29,30,31 , Fatemeh , restapi with fastapi , 40
+2025-1-4,11,18,25 , Fatemeh , restapi with fastapi for user login with sqlite , 32
+2025-2-1 ,2-2 Fatemeh userlogin frontend test with vue , 16
+2025-02-06, Rama, 0008, Vue 3 Projekt mit Vite erstellt, 3.0
+2025-02-13, Rama, 0009, SignUp, Login und Navbar-Komponenten entwickelt, 8.0
+2025-02-13, Rama, 00010, Schnittstelle (DataProvider) erstellt, MockDataProvider für gefälschte Daten implementiert, 1.0
+2025-02-20, Rama, 00011, Welcome-Seite entwickelt aber ist noch nicht fertig , 2.0
+2025-02-7,8,9 00013 Fatemeh start with mysql and docker , reset password , forget password 24
+2025-02-11   00013 Fatemeh , add filter by cuisine and city for restaurant 4 
+2025-03-08, Rama, 00012, , Implementierung sidebar menu mit Navigation Links für user profile, disches, Home und Logout,Bootstrap bentzt für layout, 4.0
+2025-03-12, Rama, 00012, , Implementierung der Komponente "MyDishes" zur Anzeige von Gerichten aus Mock-Daten mit einem Bootstrap-Kartenlayout, 6.0
+2025-03-12, Rama, 00012, , Bildern für jedes Gericht, 1.0
+2025-03-12 , Fatemeh , Food Restapi 4
+2025-03-15-16 , Fateme , vue userlogin signup, login , fetchuser , logout were finished (refreshtoken , resetpass , forgetpass should be done) 16.0
+2025-03-18, Rama, 00012, , Implementiere Chef Information Formular, 6.0
+2025-03-19 , Fatemeh , userlogin (refreshtoken , resetpass , forget pass) 10

@@ -1,0 +1,108 @@
+
+//Variables:
+// -- color
+$body-color: #f8f8f8;
+$primary-color:#ffba58;
+$botton-color:#ffba58;
+$secendary-color:#FF6040;
+$form-color: #FFFAF0;
+$botton-hover-color:#faac3f;
+
+// -- Fonts
+$body-font: Helvetica, Arial, sans-serif;
+
+*{
+    box-sizing:border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color:  $body-color;
+    font-family: $body-font;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;// abstand zwieschen die elemente
+    padding: 10px;
+}
+  
+ 
+
+  
+
+.food-page{
+    font-family: $body-font;
+    width: 60%;
+    margin: 5% auto;
+    padding: 30px;
+    background-color: $form-color;
+    border: 1px solid black; 
+    border-radius: 10px; 
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1); 
+    transition: all 0.3s ease; /* Weicher Übergang für Veränderungen */
+    &:hover{
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2); /* Mehr Schatten beim Hover */
+        border-color: #ffba58; /* Rahmenfarbe ändern bei Hover */
+    }
+    .form-row{
+        display: flex;
+        padding: 12px;
+        font-size: 1em;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        width: 100%;
+        margin-bottom: 10px;
+        transition: all 0.3s ease;
+
+        label {
+            margin-right: 10px; 
+            font-weight: bold; /* Macht das Label fett */
+        }
+
+        #description {
+            width: 60%;  
+            height: 80px; 
+            resize: vertical;  
+            padding: 10px;  
+            font-size: 1em;  
+            border: 1px solid #ccc;  
+            border-radius: 8px;  
+            margin-bottom: 10px;
+        }
+
+        
+    }
+     
+    button {
+        background-color: $primary-color;
+        color: white;
+        padding: 15px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        &:hover{
+            background-color: $botton-hover-color;
+        }
+        
+        
+   
+    }
+    h1{
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+
+}
+
+
+
+

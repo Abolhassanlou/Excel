@@ -1,0 +1,7 @@
+<template>
+    <div>
+      <h1>Protected Page</h1>
+      <p>Welcome to the protected area!</p>
+    </div>
+  </template>
+  

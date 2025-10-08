@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <title>Add Food</title>
+</head>
+<body>
+       <div class="food-page">
+        <h1>Gericht hinzufügen</h1>
+        <form>
+            <div class="form-row">
+                <label for="food-name">Gerichtname:</label>
+                <input type="text" id="food-name" name="food-name" placeholder="Name des Gericht">
+            </div>
+            <div class="form-row">
+                <label for="description">Beschreibung:</label>
+                <textarea id="description" name="description" placeholder="Beschreibung des Gerichts"></textarea>
+            </div>
+            <div class="form-row">
+                <label for="kitchen-type">Küchentyp:</label>
+                <select id="kitchen-type" name="kitchen-type" onchange="showInput()">
+                  <option value="Austria">Österreichisch</option>
+                  <option value="persisch">Persisch</option>
+                  <option value="italienisch">Italienisch</option>
+                  <option value="asiatisch">Asiatisch</option>
+                  <option value="arabisch">Arabisch</option>
+                  <option value="sonst">Sonst</option>
+                </select>
+              </div>
+              <div id="custom-kitchen-type" class="form-row" style="display: none;">
+                <label for="custom-kitchen">Bitte geben Sie den Küchentyp an:</label>
+                <input type="text" id="custom-kitchen" name="custom-kitchen" placeholder="Sonstiger Küchentyp">
+              </div>
+              <div class="form-row">
+                <label for="product-category">Gerichtskategorie:</label>
+                <div id="product-category">
+                  <label>
+                    <input type="checkbox" name="product-category" value="vega"> Vega
+                  </label>
+                  <label>
+                    <input type="checkbox" name="product-category" value="vegetarisch"> Vegetarisch
+                  </label>
+                  <label>
+                    <input type="checkbox" name="product-category" value="alcohol"> Enthält Alkohol
+                  </label>
+                  <label>
+                    <input type="checkbox" name="product-category" value="halal"> Halal
+                  </label>
+                  <label>
+                    <input type="checkbox" name="product-category" value="dessert"> Dessert
+                  </label>
+                  <label>
+                    <input type="checkbox" name="product-category" value="drink"> Getränk
+                  </label>
+                
+                </div>
+              </div>
+              <div class="form-row">
+                <label for="price">Preis:</label>
+                <input type="number" id="price" name="price" placeholder="Preis des Gerichts">
+              </div>
+              <div class="form-row">
+                <label for="size">Größe:</label>
+                <div id="size">
+                  <label>
+                    <input type="checkbox" name="size" value="small"> Klein
+                  </label>
+                  <label>
+                    <input type="checkbox" name="size" value="medium"> Mittel
+                  </label>
+                  <label>
+                    <input type="checkbox" name="size" value="large"> Groß
+                  </label>
+                </div>
+              </div>
+              <div class="form-row">
+                <label for="image">Bild hochladen:</label>
+                <input type="file" id="image" name="image">
+              </div>
+              <div class="form-row">
+                <label for="preparation-time">Vorbereitungszeit:</label>
+                <input type="text" id="preparation-time" name="preparation-time" placeholder="Vorbereitungszeit">
+              </div>
+              <button type="submit">Gericht speichern</button>
+         </form>
+       </div>
+       <script src="../../js/main.js"></script>
+</body>
+</html>
+f

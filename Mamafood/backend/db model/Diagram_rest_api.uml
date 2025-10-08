@@ -1,0 +1,117 @@
+@startuml
+actor User
+entity API
+entity Database
+
+' User requests to place an order
+User -> API: POST /api/orders
+API -> Database: Validate Basket
+Database -> API: Return Basket Info
+API -> Database: Create Order Record
+Database -> API: Return Order Details
+API -> User: Order Created
+
+' User requests to register
+User -> API: POST /users/register
+API -> Database: Validate User Data
+Database -> API: Return User ID
+API -> User: User Registered
+
+' User requests to login
+User -> API: POST /users/login
+API -> Database: Validate Login Credentials
+Database -> API: Return User Details
+API -> User: User Logged In
+
+' User updates profile
+User -> API: PUT /users/{user_id}
+API -> Database: Update User Profile
+Database -> API: Return Updated User Details
+API -> User: Profile Updated
+
+' User adds item to basket
+User -> API: POST /basket/{user_id}/items
+API -> Database: Add Item to Basket
+Database -> API: Return Updated Basket
+API -> User: Item Added to Basket
+
+' User removes item from basket
+User -> API: DELETE /basket/{user_id}/items/{food_id}
+API -> Database: Remove Item from Basket
+Database -> API: Return Updated Basket
+API -> User: Item Removed from Basket
+
+' User updates item quantity in basket
+User -> API: PUT /basket/{user_id}/items/{food_id}
+API -> Database: Update Item Quantity in Basket
+Database -> API: Return Updated Basket
+API -> User: Item Quantity Updated
+
+' User proceeds to checkout
+User -> API: POST /basket/{user_id}/checkout
+API -> Database: Validate Basket for Checkout
+Database -> API: Return Basket Info
+API -> Database: Create Payment Record
+Database -> API: Return Payment Details
+API -> User: Checkout Complete, Proceed to Payment
+
+' User makes a payment
+User -> API: POST /payments
+API -> Database: Create Payment Record
+Database -> API: Return Payment Details
+API -> User: Payment Created
+
+' User views order details
+User -> API: GET /orders/{order_id}
+API -> Database: Retrieve Order Details
+Database -> API: Return Order Details
+API -> User: Return Order Information
+
+' User views food details
+User -> API: GET /foods/{food_id}
+API -> Database: Retrieve Food Details
+Database -> API: Return Food Details
+API -> User: Return Food Information
+
+' User views food categories
+User -> API: GET /food-categories
+API -> Database: Retrieve Food Categories
+Database -> API: Return Food Categories
+API -> User: Return Food Categories Information
+
+' User views menu
+User -> API: GET /menus
+API -> Database: Retrieve Menus
+Database -> API: Return Menus
+API -> User: Return Menu Information
+
+' User views offers
+User -> API: GET /offers
+API -> Database: Retrieve Offers
+Database -> API: Return Offers
+API -> User: Return Offer Information
+
+' Restaurant adds food to menu
+Restaurant -> API: POST /restaurants/{restaurant_id}/foods
+API -> Database: Add Food to Menu
+Database -> API: Return Food Added to Menu
+API -> Restaurant: Food Added to Menu
+
+' Restaurant updates food details
+Restaurant -> API: PUT /foods/{food_id}
+API -> Database: Update Food Details
+Database -> API: Return Updated Food Details
+API -> Restaurant: Food Updated
+
+' Restaurant deletes food from menu
+Restaurant -> API: DELETE /foods/{food_id}
+API -> Database: Delete Food from Menu
+Database -> API: Return Deletion Confirmation
+API -> Restaurant: Food Deleted
+
+' Restaurant views orders
+Restaurant -> API: GET /restaurants/{restaurant_id}/orders
+API -> Database: Retrieve Restaurant Orders
+Database -> API: Return Orders
+API -> Restaurant: Return Orders Information
+@enduml

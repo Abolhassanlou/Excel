@@ -1,0 +1,21 @@
+- nr: 0001
+  title: strukturierung der Dateien
+  desc: die Ordner und die Projektdatein strukturieren
+  due: beide
+
+  - nr: 0002
+  title: Design
+  desc: Erstellung von Klassendiagrammen, API-Diagrammen und UI-Designs in Figma
+  due: beide
+  
+- nr: 0003
+  title: Frontend-Entwicklung
+  desc: Implementierung der Benutzeroberfläche, Integration von CSS/SASS, und Entwicklung von JavaScript-Funktionen.
+  due: Rama
+  
+- nr: 0004
+  title: Backend-Entwicklung
+  desc: Erstellung der serverseitigen Logik und Datenbankanbindung,Datenbank struktur, implementierung der REST API
+  due: Fatema
+
+  

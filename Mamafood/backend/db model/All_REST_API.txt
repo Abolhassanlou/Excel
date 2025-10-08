@@ -1,0 +1,57 @@
+Introduction :
+Mamafood API provides endpoints for managing restaurants, food , orders, and payment.It is designed to support both user and restaurants efficiently.
+
+The Main resources are 
+- Users
+-Restaurant
+-Orders
+-Food
+-Offers
+-Payment
+
+
+
+1. Authentication 
+All endpoinst require valid API key in the Authorization header.
+Authorization : Bearer <API_KEY>
+
+2. Endpoint 
+
+Users API 
+create a User 
+- Endpoint : POST /api/Users
+Descrition : Resgister a new user.
+Request Body:
+{
+    "name" : "John Doe"
+    "email" : "John@example.com"
+    "password" : "SecurePassword",
+    "address_id":1
+}
+
+Response :
+{"user_id" : 101,
+"name" : "john@example.com",
+"email" : "john@example.com" ,
+"registration_date": "2024-12-07T12:00:00Z"}
+
+Athentication : 
+
+Get User Details 
+Endpoint : GET /api/users{user_id}
+
+Descrition : Retrieve details for a specific user.
+Response :
+{"user_id": 101,
+"name" : "John@example.com",
+"address_id":1,
+"imag_url":null}
+
+
+Orders API 
+create an Order 
+Endpoints : POST/api/orders
+Descritpin : Create a new order from basket
+Request Body :
+
+

@@ -1,0 +1,127 @@
+Here's the REST API definition based on your class diagram:
+Roles
+
+    GET /roles: Retrieve all roles.
+    POST /roles: Add a new role.
+    DELETE /roles/{role_id}: Delete a role.
+
+Addresses
+
+    GET /addresses/{address_id}: Retrieve a specific address.
+    POST /addresses: Add a new address.
+    PUT /addresses/{address_id}: Modify an existing address.
+    DELETE /addresses/{address_id}: Delete an address.
+    GET /addresses/{address_id}/google-map-link: Retrieve Google Maps API link for the address.
+
+Users
+
+    POST /users/register: Register a new user.
+    POST /users/login: Log in a user.
+    GET /users/{user_id}: Retrieve user details.
+    PUT /users/{user_id}: Update user profile.
+    POST /users/{user_id}/place-order: Place an order.
+
+UserRoles
+
+    No endpoints (acts as a join table).
+
+CuisineTypes
+
+    GET /cuisine-types: Retrieve all cuisine types.
+    POST /cuisine-types: Add a new cuisine type.
+    DELETE /cuisine-types/{cuisine_type_id}: Delete a cuisine type.
+
+Restaurants
+
+    GET /restaurants/{restaurant_id}: Retrieve restaurant details.
+    PUT /restaurants/{restaurant_id}/status: Update restaurant status.
+    POST /restaurants/{restaurant_id}/foods: Add food to a restaurant.
+    GET /restaurants/{restaurant_id}/orders: View orders for a restaurant.
+
+RestaurantCuisine
+
+    POST /restaurants/{restaurant_id}/cuisines/{cuisine_type_id}: Add a cuisine type to a restaurant.
+    DELETE /restaurants/{restaurant_id}/cuisines/{cuisine_type_id}: Remove a cuisine type from a restaurant.
+
+WorkingTime
+
+    GET /restaurants/{restaurant_id}/working-times: Retrieve working hours.
+    POST /restaurants/{restaurant_id}/working-times: Add working time.
+    PUT /working-times/{working_time_id}: Modify working time.
+    DELETE /working-times/{working_time_id}: Delete working time.
+
+Food
+
+    GET /foods: Retrieve all foods.
+    POST /foods: Add a new food.
+    PUT /foods/{food_id}: Modify food details.
+    DELETE /foods/{food_id}: Delete a food.
+    PUT /foods/{food_id}/stock: Update food stock.
+
+FoodCategory
+
+    GET /food-categories: Retrieve all food categories.
+    POST /food-categories: Add a new food category.
+    DELETE /food-categories/{food_category_id}: Delete a food category.
+
+Menu
+
+    GET /menus: Retrieve all menus.
+    POST /menus: Add a new menu.
+    PUT /menus/{menu_id}: Modify menu details.
+    DELETE /menus/{menu_id}: Delete a menu.
+
+MenuFood
+
+    POST /menus/{menu_id}/foods/{food_id}: Add food to a menu.
+    DELETE /menus/{menu_id}/foods/{food_id}: Remove food from a menu.
+    PUT /menus/{menu_id}/foods/{food_id}: Update food in a menu (price, size, description).
+
+Offers
+
+    GET /offers: Retrieve all offers.
+    POST /offers: Add a new offer.
+    PUT /offers/{offer_id}: Update an offer.
+    DELETE /offers/{offer_id}: Delete an offer.
+
+Basket
+
+    GET /basket/{user_id}: Retrieve the current basket for a user.
+    POST /basket/{user_id}/items: Add an item to the basket.
+    DELETE /basket/{user_id}/items/{food_id}: Remove an item from the basket.
+    PUT /basket/{user_id}/items/{food_id}: Update item quantity in the basket.
+    POST /basket/{user_id}/checkout: Initiates the checkout process, validates the basket, creates a payment, and empties the basket.
+
+Payment
+
+    GET /payments/{payment_id}: Retrieve payment details.
+    POST /payments: Create a new payment.
+    PUT /payments/{payment_id}/status: Mark payment as completed.
+
+Order
+
+    GET /orders/{order_id}: Retrieve order details.
+    POST /orders: Create a new order (after payment).
+    PUT /orders/{order_id}/status: Update order status.
+
+OrderDetails
+
+    GET /orders/{order_id}/details: Retrieve order details (items, quantities, prices).
+
+BankInfo
+
+    GET /restaurants/{restaurant_id}/bank-info: Retrieve bank details for a restaurant.
+    POST /restaurants/{restaurant_id}/bank-info: Add bank details.
+    PUT /restaurants/{restaurant_id}/bank-info: Update bank details.
+    DELETE /restaurants/{restaurant_id}/bank-info: Delete bank details.
+
+RestaurantDocs
+
+    GET /restaurants/{restaurant_id}/docs: Retrieve all documents for a restaurant.
+    POST /restaurants/{restaurant_id}/docs: Upload a document.
+    DELETE /docs/{doc_id}: Delete a document.
+
+FoodFoodCategory
+
+    POST /foods/{food_id}/categories/{food_category_id}: Add a food to a category.
+    DELETE /foods/{food_id}/categories/{food_category_id}: Remove a food from a category.

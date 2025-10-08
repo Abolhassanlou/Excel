@@ -1,0 +1,257 @@
+@startuml
+' Roles class
+class Roles {
+    + role_id: int
+    + role_name: string
+    + add_role()
+    + delete_role()
+}
+
+' Addresses class
+class Addresses {
+    + address_id: int
+    + first_street: string
+    + flat_number: string
+    + door_number: string
+    + city: string
+    + state: string
+    + postal_code: string
+    + google_maps_link: string
+    + add_address()
+    + modify_address()
+    + get_address()
+    + delete_address()
+    + get_google_maps_api()
+}
+
+' Users class
+class Users {
+    + user_id: int
+    + name: string
+    + email: string
+    + password: string
+    + address_id: int
+    + registration_date: datetime
+    + image_url: string
+    + register()
+    + login()
+    + update_profile()
+    + place_order()
+}
+
+' UserRoles class
+class UserRoles {
+    + user_id: int
+    + role_id: int
+}
+
+' CuisineTypes class
+class CuisineTypes {
+    + cuisine_type_id: int
+    + cuisine_name: string
+    + add_cuisine()
+    + delete_cuisine()
+}
+
+' Restaurant class
+class Restaurant {
+    + restaurant_id: int
+    + user_id: int
+    + status: string
+    + is_active: bool
+    + message: string
+    + restaurant_name: string
+    + description: string
+    + order_requirement: string
+    + image_url: string
+    + created_at: datetime
+    + address_id: int
+    + update_status()
+    + add_food()
+    + view_orders()
+}
+
+' RestaurantCuisine class
+class RestaurantCuisine {
+    + restaurant_id: int
+    + cuisine_type_id: int
+    + add_cuisine_restaurant()
+    + delete_cuisine_restaurant()
+}
+
+' WorkingTime class
+class WorkingTime {
+    + working_time_id: int
+    + restaurant_id: int
+    + day_of_week: string
+    + start_hour: string
+    + end_hour: string
+    + is_open: bool
+    + add_time()
+    + delete_time()
+    + modify()
+}
+
+' Food class
+class Food {
+    + food_id: int
+    + food_name: string
+    + description: string
+    + cuisine_type_id: int
+    + restaurant_id: int
+    + standard_price: float
+    + price_small: float
+    + price_medium: float
+    + price_large: float
+    + quantity: int
+    + initial_stock: int
+    + image_url: string
+    + preparation_time: string
+    + add_food()
+    + modify_food()
+    + delete_food()
+    + update_price()
+    + update_stock()
+}
+
+' FoodCategory class
+class FoodCategory {
+    + food_category_id: int
+    + category_name: string
+    + add_foodCategory()
+    + delete_food_category()
+}
+
+' Menu class
+class Menu {
+    + menu_id: int
+    + restaurant_id: int
+    + menu_name: string
+    + description: string
+    + created_at: datetime
+    + add_menu()
+    + delete_menu()
+    + modify_menu()
+}
+
+' MenuFood class
+class MenuFood {
+    + menufood_id: int
+    + menu_id: int
+    + food_id: int
+    + created_at: datetime
+    + add_food_to_menu()
+    + remove_food_from_menu()
+    + deactivate_food_in_menu()
+    + activate_food_in_menu()
+    + update_food_in_menu()
+}
+
+' Offers class
+class Offers {
+    + offer_id: int
+    + offer_type: string
+    + offer_value: float
+    + applicable_to: string
+    + food_id: int
+    + min_order_value: float
+    + offer_start_date: datetime
+    + offer_end_date: datetime
+    + apply_offer()
+    + validate_offer()
+}
+
+' Basket class
+class Basket {
+    + basket_id: int
+    + user_id: int
+    + food_id: int
+    + quantity: int
+    + restaurant_id: int
+    + add_item()
+    + remove_item()
+    + calculate_total()
+    + clear()
+    + checkout()
+}
+
+' Payment class
+class Payment {
+    + payment_id: int
+    + basket_id: int
+    + payment_date: datetime
+    + amount: float
+    + payment_status: string
+    + create_payment()
+    + mark_as_completed()
+}
+
+' Order class
+class Order {
+    + order_id: int
+    + payment_id: int
+    + order_date: datetime
+    + status: string
+    + create_order()
+    + add_order_details()
+    + update_order_status()
+}
+
+' OrderDetails class
+class OrderDetails {
+    + order_detail_id: int
+    + order_id: int
+    + food_id: int
+    + quantity: int
+    + price: float
+}
+
+' BankInfo class
+class BankInfo {
+    + bank_info_id: int
+    + restaurant_id: int
+    + bank_name: string
+    + account_number: string
+    + routing_number: string
+    + account_type: string
+    + iban: string
+    + add_bank_info()
+    + update_bank_info()
+    + delete_bank_info()
+}
+
+' RestaurantDocs class
+class RestaurantDocs {
+    + doc_id: int
+    + restaurant_id: int
+    + doc_type: string
+    + doc_url: string
+    + uploaded_at: datetime
+    + upload_document()
+    + delete_document()
+    + get_documents()
+}
+
+' FoodFoodCategory class
+class FoodFoodCategory {
+    + food_id: int
+    + food_category_id: int
+    + add_food_to_category()
+    + remove_food_from_category()
+}
+
+' Relationships
+Users "many" -- "many" Roles : UserRoles
+Users "many" -- "many" UserRoles
+Roles "many" -- "many" UserRoles
+Restaurant "one" -- "one" Addresses : "has address"
+Restaurant "many" -- "many" CuisineTypes : RestaurantCuisine
+Restaurant "many" -- "many" Food : MenuFood
+Food "many" -- "many" FoodCategory : FoodFoodCategory
+Menu "many" -- "many" Food : MenuFood
+Food "many" -- "many" FoodCategory : FoodFoodCategory
+Restaurant "many" -- "many" WorkingTime : "has working time"
+Restaurant "one" -- "one" BankInfo : "has bank information"
+Restaurant "many" -- "many" RestaurantDocs : "has documents"
+
+@enduml

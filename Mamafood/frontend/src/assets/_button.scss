@@ -1,0 +1,22 @@
+
+@use "variables" as *;  // Importiert die Variablen aus `_variables.scss`
+
+button {
+  background-color: $primary-color;
+  color: $button-text-color;
+  border: none;
+  padding: $button-padding;
+  font-size: 16px;
+  border-radius: $border-radius;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}

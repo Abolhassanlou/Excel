@@ -1,0 +1,70 @@
+{
+  "chefs": [
+    {
+      "id": 1,
+      "name": "Chef John",
+      "description": "A master of Italian cuisine.",
+      "city": "New York",
+      "cuisine": "Italian",
+      "specialFeatures": ["Vegan", "Gluten-Free", "Family Recipes"],
+      "rating": 4.8,
+      "photo": "/images/chef1.jpg",
+      "foods": [
+        {
+          "id": 1,
+          "name": "Margherita Pizza",
+          "specialFeatures": ["Vegetarian", "Gluten-Free Option"],
+          "price": 15.99,
+          "ingredients": ["Tomato", "Mozzarella", "Basil"]
+        },
+        {
+          "id": 2,
+          "name": "Spaghetti Carbonara",
+          "specialFeatures": ["Pasta", "Contains Eggs"],
+          "price": 12.99,
+          "ingredients": ["Spaghetti", "Eggs", "Bacon", "Parmesan"]
+        },
+        {
+          "id": 3,
+          "name": "Tiramisu",
+          "specialFeatures": ["Dessert", "Contains Dairy"],
+          "price": 7.99,
+          "ingredients": ["Ladyfingers", "Mascarpone", "Coffee", "Cocoa Powder"]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Chef Maria",
+      "description": "Famous for her Mediterranean and Middle Eastern dishes.",
+      "city": "Los Angeles",
+      "cuisine": "Mediterranean",
+      "specialFeatures": ["Vegetarian", "Seafood Lover", "Fresh Ingredients"],
+      "rating": 4.7,
+      "photo": "/images/chef2.jpg",
+      "foods": [
+        {
+          "id": 1,
+          "name": "Falafel",
+          "specialFeatures": ["Vegetarian", "Gluten-Free"],
+          "price": 9.99,
+          "ingredients": ["Chickpeas", "Garlic", "Cumin", "Parsley"]
+        },
+        {
+          "id": 2,
+          "name": "Grilled Salmon",
+          "specialFeatures": ["Gluten-Free", "High in Omega-3"],
+          "price": 18.99,
+          "ingredients": ["Salmon", "Olive Oil", "Lemon", "Garlic"]
+        },
+        {
+          "id": 3,
+          "name": "Hummus",
+          "specialFeatures": ["Vegan", "Gluten-Free"],
+          "price": 5.99,
+          "ingredients": ["Chickpeas", "Tahini", "Garlic", "Lemon Juice"]
+        }
+      ]
+    }
+  ]
+}

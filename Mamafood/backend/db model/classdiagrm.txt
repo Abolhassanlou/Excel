@@ -1,0 +1,188 @@
+Roles
+
+    Attributes: 
+        role_id, role_name
+    Relationships:
+        Many-to-Many with Users via UserRoles.
+    Method 
+    add_role(), delete_role()
+
+Addresses
+
+    Attributes:
+    address_id, first_street, flat_number, door_number, city, state, postal_code, google_maps_link
+    Relationships:
+        One-to-One with Restaurant (obligatory).
+    methods : 
+        add_address(), modfiy_address , get_address(), delete_address(),get_google_maps_api()
+
+Users
+
+    Attributes:
+        user_id, name, email, password, address_id, registration_date, image_url
+    Relationships:
+        Many-to-Many with Roles via UserRoles.
+    Methods:
+        register(), login(), update_profile(), place_order()
+
+UserRoles
+
+    Attributes:
+        user_id, role_id
+    Relationships:
+        Links Users and Roles (Many-to-Many)
+    Mthods: none needs , as it is just a join table
+
+CuisineTypes
+
+    Attributes:
+        cuisine_type_id, cuisine_name
+    Methods: 
+        add_cusine(), delete_cusine();
+
+Restaurant
+
+    Attributes:
+        restaurant_id, user_id, status, is_active, message, restaurant_name, description, order_requirement, image_url, created_at, address_id
+    Relationships:
+        Many-to-Many with CuisineTypes via RestaurantCuisine.
+    Methods:
+        update_status(), add_food(), view_orders()
+
+RestaurantCuisine
+
+    Attributes:
+        restaurant_id, cuisine_type_id
+    Relationships:
+        Many-to-One with Restaurant.
+        Many-to-One with CuisineTypes.
+    Methods:
+        add_cusine_restaurant() , delete_cusine_restaurant()
+
+WorkingTime
+
+    Attributes:
+        working_time_id, restaurant_id, day_of_week, start_hour, end_hour, is_open
+    Relationships:
+        Many-to-One with Restaurant.
+    Methods: 
+    add_time() , delete_time(), modify()
+
+Food
+
+    Attributes:
+        food_id, food_name, description, cuisine_type_id, restaurant_id, standard_price, price_small, price_medium, price_large, quantity, initial_stock, image_url, preparation_time
+    Relationships:
+        Many-to-Many with FoodCategory via FoodFoodCategory.
+    Methods:
+       add_food(), modify_food(), delete_food() , update_price(), update_stock()
+
+FoodCategory
+
+    Attributes:
+        food_category_id, category_name
+    Relationships:
+        Many-to-Many with Food via FoodFoodCategory.
+    Method:
+        add_foodCategory(), delete_food_category() // admin add this things should i put a method here or not
+
+Menu
+
+    Attributes:
+        menu_id, restaurant_id, menu_name, description , created_at
+    Relationships:
+        Many-to-One with Restaurant (restaurant_id)
+        Many-to-Many with Food via MenuFood.
+    Methods: 
+        add_menu() , delete_menu() , modify_menu()
+
+MenuFood
+
+    Attributes:
+    menufood_id , menu_id, food_id , created_at
+    Relationships:
+        Many-to-One with Menu (menu_id).
+        Many-to-One with Food (food_id).
+    Methods:
+        add_food_to_menu(menu_id, food_id) ,remove_food_from_menu(menu_id, food_id)
+        deactivate_food_in_menu(menu_id, food_id)
+        activate_food_in_menu(menu_id, food_id)
+        update_food_in_menu(menu_id, food_id, new_price, new_size, new_description)
+
+Offers
+
+    Attributes:
+        offer_id, offer_type, offer_value, applicable_to, food_id (optional), min_order_value, offer_start_date, offer_end_date
+    Relationships:
+        Many-to-One with Food (if applicable).
+    Methods:
+    apply_offer(), validate_offer()
+
+
+Basket
+
+    Attributes:
+        basket_id, user_id, food_id , quantity , restaurant_id
+    
+    Relationships:
+        A Basket is linked to a User (Many-to-One).
+        A Basket is linked to a Food item (Many-to-One).
+        A Basket is linked to a Restaurant (Many-to-One).
+    Methods:
+        add_item(food_id, quantity), remove_item(food_id), calculate_total(), clear() ,checkout() -- validate the basket , create new payment for the user and return a payment_id
+
+Payment
+
+    Attributes:
+        payment_id, basket_id, payment_date, amount, payment_status (pending, completed, failed)
+    Methods:
+    create_payment(), mark_as_completed() -- payment status to completed
+
+Order
+
+    Attributes:
+        order_id, payment_id, order_date, status
+    Relationship : 
+        linked to Payment(one to one)
+    Methods:
+        create_order() , add_order_details(), update_order_status()
+        -- validate paymentstatus and transfer from basket to orderdetail and clear the basket
+
+OrderDetails
+
+    Attributes:
+        order_detail_id, order_id, food_id, quantity, price
+    Relationships:
+        Many-to-One with Orders, Many-to-One with Food.
+
+BankInfo
+
+    Attributes:
+        bank_info_id, restaurant_id, bank_name, account_number, routing_number, account_type, iban
+    Relationships:
+        One-to-One with Restaurant.
+    Method:
+        add_bank_info(restaurant_id, bank_detail), update_bank_infor(bank_info_id, update_detail) , delete_bank_info(bank_info_id)
+
+RestaurantDocs
+
+    Attributes:
+        doc_id, restaurant_id, doc_type, doc_url, uploaded_at
+    Relationships:
+        Many-to-One with Restaurant.
+    
+    Methods:
+    upload_document(restaurant_id, doc_type, doc_url)
+    delete_document(doc_id)
+    get_documents(restaurant_id)
+
+FoodFoodCategory
+
+    Attributes:
+        food_id, food_category_id
+    Relationships:
+        Many-to-One with Food (food_id).
+        Many-to-One with FoodCategory (food_category_id).
+    Methods:
+        add_food_to_category(food_id, food_category_id)
+        remove_food_from_category(food_id, food_category_id)
